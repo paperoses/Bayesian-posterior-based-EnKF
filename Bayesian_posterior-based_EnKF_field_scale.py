@@ -14,6 +14,7 @@ import pandas as pd
 import datetime as dt
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from shutil import copyfile
 
 from pcse.util import Afgen
 from setup_for_field_enkf import spot_setup
@@ -51,6 +52,7 @@ def run_enkf(task,fig_show=False,update_em=True,update_ts=True):
     data=spot.data
     file=glob.glob('Share_Data_for_field/MCMC/DREAM_WOFOST_*_%d_%04d_%04d.csv'%(year-1,data[i_th][0],data[i_th][1]))[0]
     # print(file)
+    copyfile(file, file.replace('MCMC','MCMC2'))
     results = spotpy.analyser.load_csv_results(file[:-4])
     pars=[word for word in results.dtype.names if word.startswith('par')]
     ensemble_size = 50
